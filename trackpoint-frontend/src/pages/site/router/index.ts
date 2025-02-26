@@ -4,7 +4,7 @@ import { goToDashBoard } from '@/util/goto'
 import { storeToRefs } from 'pinia'
 import { createRouter, createWebHistory } from 'vue-router'
 import { message } from 'ant-design-vue'
-import { SideMenuEnum, SideMenuNameEnum, type SideMenuKey } from '@/enum'
+import { SideMenuPathEnum, SideMenuNameEnum, type SideMenuKey } from '@/enum'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,15 +17,13 @@ const router = createRouter({
         public: true
       }
     },
-    ...Object.entries(SideMenuEnum).map(([k, v]) => ({
+    ...Object.entries(SideMenuPathEnum).map(([k, v]) => ({
       path: v,
       name: SideMenuNameEnum[k as SideMenuKey],
       component: () => import('~site/views/main/index.vue'),
     }))
   ],
 })
-
-console.log(SideMenuEnum);
 
 router.beforeEach(async (to) => {
   if (to.meta.public) {

@@ -1,17 +1,17 @@
 <template>
-    <table-layout>
-        <template #header>
-            <a-row style="width: 100%;align-items: center;margin-bottom: 6px;">
-                <a-col style="margin:5px 0">
-                    <a-input class="input-search" v-model:value.trim="query.keyword" allow-clear
-                        placeholder="搜索项目名或描述"></a-input>
-                </a-col>
-                <a-col>
-                    <create-project-modal />
-                </a-col>
-            </a-row>
-        </template>
-        <template #table>
+    <div>
+        <table-layout>
+            <template #header>
+                <a-row style="width: 100%;align-items: center;margin-bottom: 6px;">
+                    <a-col style="margin:5px 0">
+                        <a-input class="input-search" v-model:value.trim="query.keyword" allow-clear
+                            placeholder="搜索项目名或描述"></a-input>
+                    </a-col>
+                    <a-col>
+                        <create-project-modal />
+                    </a-col>
+                </a-row>
+            </template>
             <a-table :data-source="data.records" :columns="getColumns(query.status)" class="table" :pagination="{
                 total: data.total,
                 simple: true
@@ -30,12 +30,12 @@
                         :style="{ color: query.updateTimePeriod?.start || query.updateTimePeriod?.end ? '#1677FF' : '' }" />
                 </template>
             </a-table>
-        </template>
-    </table-layout>
+        </table-layout>
+    </div>
 </template>
 
 <script setup lang="ts">
-import { watch, watchEffect } from 'vue'
+import { watch } from 'vue'
 import { getColumns } from './data';
 import { SideMenuNameEnum } from '@/enum';
 import tableBodyCell from './component/table-body-cell/index.vue';
@@ -74,11 +74,6 @@ const pageChange = (pagination: any, filters: any, sorter: any) => {
         order: sorter.order
     }]
     query.value.status = filters.status || []
-}
-const clickRefresh = () => {
-    refresh().then(() => {
-        message.success('刷新成功')
-    })
 }
 </script>
 

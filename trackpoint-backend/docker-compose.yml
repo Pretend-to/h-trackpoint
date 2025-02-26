@@ -14,8 +14,8 @@ services:
       MYSQL_ROOT_PASSWORD: 123456
       TZ: Asia/Shanghai
     volumes:
-      - ./resource/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./resource/mysql-data:/data
+      - ./resources/init.sql:/docker-entrypoint-initdb.d/init.sql
+      # - ./resources/mysql-data:/data
     networks:
       - trackpoint-network
 
@@ -41,11 +41,7 @@ services:
       TZ: Asia/Shanghai
     command: server /data --console-address ":9000" --address ":9001" # webui
 
-
   server:
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
     image: python:3.11.9-alpine3.20
     ports:
       - "8000:8000"

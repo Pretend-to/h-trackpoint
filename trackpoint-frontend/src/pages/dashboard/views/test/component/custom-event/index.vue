@@ -5,7 +5,8 @@
                 <a-badge v-for="(item, index) in eventList" :count="item.param_list.length">
                     <div class="item" :class="index === selectedEventIndex ? 'selected' : ''"
                         @click="selectedEventIndex = index">
-                        <div class="status" :style="{ backgroundColor: item.status === 1 ? '#00b96b' : 'red' }">
+                        <div class="status"
+                            :style="{ backgroundColor: item.status === StatusEnum.NORMAL ? '#00b96b' : 'red' }">
                         </div>
                         <div class="name">{{ item.name }}</div>
                     </div>
@@ -45,20 +46,15 @@
 import { reqTestEventList } from '@/api/v1/test';
 import type { IEvent } from '@/type/event';
 import { message } from 'ant-design-vue';
-import { computed, ref, watch, watchEffect } from 'vue';
+import { ref, watch, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useAppStore } from '@/store';
-import { loader } from '@guolao/vue-monaco-editor';
 import { genJSONStrFromIEvent, genYAMLStrFromIEvent, JSONToYAML, YAMLToJSON } from './util';
 import { VueMonacoEditor } from '@guolao/vue-monaco-editor';
-import { sendEvent } from '@/h-trackpoint/main';
+import { sendEvent } from 'h-trackpoint'
 import yaml from 'js-yaml'
+import { StatusEnum } from '@/enum';
 
-loader.config({
-    paths: {
-        vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.43.0/min/vs',
-    },
-})
 
 const { isRegisterSuccess, pid } = defineProps<{
     pid: string

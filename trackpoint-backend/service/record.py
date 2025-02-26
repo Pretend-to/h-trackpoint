@@ -8,7 +8,6 @@ from domain.entity.custom_event import CustomEvent
 from domain.entity.default_event import DefaultEvent
 from domain.vo.record import QueryRecordVO, QueryEventClientItemVO
 from domain.vo.common import PageVO
-from utils import can_be_number
 
 
 @Service
@@ -19,7 +18,7 @@ class RecordService:
         for k, v in p.items():
             if k == 'js_heap_size_used_percent':
                 p[k] = f'{p[k]} %'
-            elif k in ['dns', 'tcp', 'request', 'response', 'processing', 'load_event_duration', 'time_duration']:
+            elif k in ['dns', 'tcp', 'request', 'response', 'processing', 'load_event_duration', 'time_duration', 'page_stay_duration']:
                 p[k] = f'{p[k]} ms'
         return p
 
